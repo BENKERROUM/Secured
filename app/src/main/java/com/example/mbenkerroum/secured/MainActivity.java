@@ -1,6 +1,7 @@
 package com.example.mbenkerroum.secured;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,17 +16,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PasswordProvider.updatePassword("new password", new PasswordProvider.Callback<String>() {
-            @Override
-            public void onSuccess(String o) {
-                displayPassord(o);
-            }
-
-            @Override
-            public void onError(String o) {
-                showError(o);
-            }
-        });
+        startActivity(new Intent(this,PasswordDetailActivity.class));
     }
 
 

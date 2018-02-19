@@ -36,6 +36,7 @@ public class PasswordProvider {
             try {
                 password.setPasswordString(s);
                 callback.onSuccess(s);
+                App.get().getDB().productDao().update(password);
                 Log.e("Class : "+Tag,"Password updated ! ");
             }catch (NullPointerException e){
                 Log.e("Class : "+Tag,"Creating new password entry..");
