@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Secured</string>
+    <string name="title_activity_password_detail">PasswordDetailActivity</string>
+    <string name="copyText">Copy</string>
+    <string name="updateText">Update</string>
+    <string name="LoremIpsum">LoremIpsum</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
