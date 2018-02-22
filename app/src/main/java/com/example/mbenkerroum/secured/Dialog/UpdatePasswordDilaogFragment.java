@@ -76,22 +76,22 @@ public class UpdatePasswordDilaogFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
 
-        void onSuccess(Password s);
+        void onSuccessUpdatePassword(Password s);
 
-        void onCancel();
+        void onCancelUpdatePassword();
     }
 
     @OnClick(R.id.btnSave)
     public void onSave(View v) {
         password.setPasswordString(edtInputPassword.getText().toString());
         password.setPasswordName(edtInputName.getText().toString());
-        mListener.onSuccess(password);
+        mListener.onSuccessUpdatePassword(password);
         dismiss();
     }
 
     @OnClick(R.id.btnCancel)
     public void onCancel(View v) {
-        mListener.onCancel();
+        mListener.onCancelUpdatePassword();
         dismiss();
     }
 

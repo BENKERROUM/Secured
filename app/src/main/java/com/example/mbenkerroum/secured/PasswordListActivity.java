@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mbenkerroum.secured.Dialog.NewPasswordDilaogFragment;
+import com.example.mbenkerroum.secured.Dialog.UpdatePasswordDilaogFragment;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ import butterknife.OnClick;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class PasswordListActivity extends CustomActivity implements NewPasswordDilaogFragment.OnFragmentInteractionListener{
+public class PasswordListActivity extends CustomActivity implements NewPasswordDilaogFragment.OnFragmentInteractionListener,UpdatePasswordDilaogFragment.OnFragmentInteractionListener{
 
     private static final String TAG ="PasswordListActivity" ;
     @BindView(R.id.toolbar)
@@ -137,6 +138,77 @@ public class PasswordListActivity extends CustomActivity implements NewPasswordD
     @Override
     protected void onResume() {
         super.onResume();
+        refreach();
+
+    }
+
+
+    public void onDelete(Password password) {
+        PasswordProvider.removePassword(password, new PasswordProvider.Callback<String, String>() {
+            @Override
+            public void onSuccess(String s) {
+                showMessage(s);
+                PasswordProvider.getAllPasswords(new PasswordProvider.Callback<List<Password>, String>() {
+                    @Override
+                    public void onSuccess(List<Password> passwords) {
+                        runOnUiThread(() ->recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(PasswordListActivity.this,passwords,mTwoPane)));
+                    }
+
+                    @Override
+                    public void onError(String s) {
+                        showMessage(s);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(String s) {
+                showMessage(s);
+            }
+        });
+    }
+
+
+    public void onCopy(Password password) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(password.getPasswordName(), password.getPasswordString());
+        clipboard.setPrimaryClip(clip);
+        showMessage("copied to Clip Board");
+    }
+
+
+    public void onEdit(Password password) {
+        UpdatePasswordDilaogFragment newFragment = new UpdatePasswordDilaogFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(UpdatePasswordDilaogFragment.KEY, password);
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), TAG);
+    }
+
+
+    @Override
+    public void onSuccessUpdatePassword(Password s) {
+        PasswordProvider.updatePassword(s, new PasswordProvider.Callback<String, String>() {
+            @Override
+            public void onSuccess(String s) {
+                showMessage(s);
+                refreach();
+            }
+
+            @Override
+            public void onError(String s) {
+                showMessage(s);
+            }
+        });
+    }
+
+    @Override
+    public void onCancelUpdatePassword() {
+
+    }
+
+    private void refreach(){
         PasswordProvider.getAllPasswords(new PasswordProvider.Callback<List<Password>, String>() {
             @Override
             public void onSuccess(List<Password> passwords) {
@@ -148,14 +220,5 @@ public class PasswordListActivity extends CustomActivity implements NewPasswordD
                 showMessage(s);
             }
         });
-
-    }
-
-
-    public void copy(Password password) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(password.getPasswordName(), password.getPasswordString());
-        clipboard.setPrimaryClip(clip);
-        showMessage("copied to Clip Board");
     }
 }

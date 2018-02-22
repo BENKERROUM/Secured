@@ -119,7 +119,7 @@ public class PasswordDetailActivity extends CustomActivity implements PasswordDe
     }
 
     @Override
-    public void onSuccess(Password s) {
+    public void onSuccessUpdatePassword(Password s) {
         PasswordProvider.updatePassword(s, new PasswordProvider.Callback<String, String>() {
             @Override
             public void onSuccess(String s) {
@@ -135,7 +135,8 @@ public class PasswordDetailActivity extends CustomActivity implements PasswordDe
     }
 
     @Override
-    public void onCancel() {
+    public void onCancelUpdatePassword() {
 
     }
+
 }

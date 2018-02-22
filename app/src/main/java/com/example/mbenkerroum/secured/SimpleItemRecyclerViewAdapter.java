@@ -62,16 +62,12 @@ public class SimpleItemRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mIdView.setText(mValues.get(position).getPasswordName());
+        holder.mIdView.setText(mValues.get(position).getPasswordName().toUpperCase());
         holder.mContentView.setText(mValues.get(position).getPasswordString());
         holder.itemView.setTag(mValues.get(position));
-        holder.mContainer.setOnClickListener(mOnClickListener);
-        holder.mCopy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mParentActivity.copy(mValues.get(position));
-            }
-        });
+        holder.mCopy.setOnClickListener(view -> mParentActivity.onCopy(mValues.get(position)));
+        holder.mEdit.setOnClickListener(view -> mParentActivity.onEdit(mValues.get(position)));
+        holder.mDelete.setOnClickListener(view -> mParentActivity.onDelete(mValues.get(position)));
     }
 
     @Override
@@ -84,6 +80,8 @@ public class SimpleItemRecyclerViewAdapter
         final TextView mContentView;
         final View mContainer;
         final View mCopy;
+        final View mEdit;
+        final View mDelete;
 
         ViewHolder(View view) {
             super(view);
@@ -91,6 +89,8 @@ public class SimpleItemRecyclerViewAdapter
             mContentView = view.findViewById(R.id.content);
             mContainer = view.findViewById(R.id.container);
             mCopy = view.findViewById(R.id.copy);
+            mEdit = view.findViewById(R.id.edit);
+            mDelete = view.findViewById(R.id.delete);
         }
     }
 
