@@ -9,18 +9,17 @@ import android.arch.persistence.room.migration.Migration;
  * Created by mbenkerroum on 15/02/2018.
  */
 
-@Database(entities = {Password.class}, version = 1)
+@Database(entities = {Password.class}, version = 2)
 public abstract class MyDatabase extends RoomDatabase {
     public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE product "
-                    + " ADD COLUMN price INTEGER");
+            database.execSQL("ALTER TABLE password "
+                    + " ADD COLUMN passwordName TEXT");
 
-            // enable flag to force update products
             App.get().setForceUpdate(true);
         }
     };
 
-    public abstract PasswordDAO productDao();
+    public abstract PasswordDAO passwordDao();
 }

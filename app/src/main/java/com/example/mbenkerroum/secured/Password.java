@@ -9,17 +9,27 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Password {
+public class Password implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int uid;
+
+    @ColumnInfo(name = "passwordName")
+    private String passwordName;
 
     @ColumnInfo(name = "passwordString")
     private String passwordString;
     @Ignore
     public Password(int uid, String passwordString) {
         this.uid = uid;
+        this.passwordString = passwordString;
+    }
+    @Ignore
+    public Password(String passwordName, String passwordString) {
+        this.passwordName = passwordName;
         this.passwordString = passwordString;
     }
 
@@ -44,4 +54,13 @@ public class Password {
     public void setPasswordString(String passwordString) {
         this.passwordString = passwordString;
     }
+
+    public String getPasswordName() {
+        return passwordName;
+    }
+
+    public void setPasswordName(String passwordName) {
+        this.passwordName = passwordName;
+    }
+
 }

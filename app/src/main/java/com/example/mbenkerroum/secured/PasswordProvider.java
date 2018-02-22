@@ -12,44 +12,62 @@ import java.util.List;
 
 public class PasswordProvider {
 
-    public static int PASSWORD_ID=551650;
+
     private static String Tag = "PasswordProvider";
 
 
-    public static void providePassord(Callback callback) {
+    public static void getAllPasswords(Callback <List<Password>,String> callback){
+
         new Thread(() -> {
-            Password password = App.get().getDB().productDao().findByPassword(PASSWORD_ID);
             try {
-                String passwordString = password.getPasswordString();
-                callback.onSuccess(passwordString);
-            }catch (NullPointerException e){
-                Log.e("Class : "+Tag,e.getMessage());
-                callback.onError("No password found");
+                List<Password> passwords =App.get().getDB().passwordDao().getAll();
+                callback.onSuccess(passwords);
+            }catch (Exception e){
+                callback.onError(e.getLocalizedMessage());
+                Log.e(Tag,e.getLocalizedMessage());
             }
         }).start();
     }
 
-    public static void updatePassword(String s, Callback callback){
-
+    public static void saveNewPassword(Password password,Callback<String,String> callback){
         new Thread(() -> {
-            Password password = App.get().getDB().productDao().findByPassword(PASSWORD_ID);
             try {
-                password.setPasswordString(s);
-                callback.onSuccess(s);
-                App.get().getDB().productDao().update(password);
-                Log.e("Class : "+Tag,"Password updated ! ");
-            }catch (NullPointerException e){
-                Log.e("Class : "+Tag,"Creating new password entry..");
-                App.get().getDB().productDao().insert(new Password(PASSWORD_ID,s));
-                Log.e("Class : "+Tag,"Password updated ! ");
+                App.get().getDB().passwordDao().insert(password);
+                callback.onSuccess("Password saved !");
+            } catch (Exception e) {
+                Log.e(Tag, e.getLocalizedMessage());
+                callback.onError("Error");
             }
         }).start();
+    }
 
+    public static void removePassword(Password password,Callback<String,String> callback){
+        new Thread(() -> {
+            try {
+                App.get().getDB().passwordDao().delete(password);
+                callback.onSuccess("Password removed !");
+            } catch (Exception e) {
+                Log.e(Tag, e.getLocalizedMessage());
+                callback.onError("Error");
+            }
+        }).start();
+    }
+
+    public static void updatePassword(Password password,Callback<String,String> callback){
+        new Thread(() -> {
+            try {
+                App.get().getDB().passwordDao().update(password);
+                callback.onSuccess("Password updated !");
+            } catch (Exception e) {
+                Log.e(Tag, e.getLocalizedMessage());
+                callback.onError("Error");
+            }
+        }).start();
     }
 
 
-    interface Callback<T> {
+    interface Callback<T,E> {
          void onSuccess(T t);
-         void onError(T t);
+         void onError(E e);
     }
 }

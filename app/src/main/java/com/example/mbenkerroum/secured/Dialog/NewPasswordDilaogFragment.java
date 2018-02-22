@@ -1,16 +1,17 @@
-package com.example.mbenkerroum.secured;
+package com.example.mbenkerroum.secured.Dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.mbenkerroum.secured.Password;
+import com.example.mbenkerroum.secured.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,13 +22,11 @@ import butterknife.Unbinder;
  * Created by mbenkerroum on 16/02/2018.
  */
 
-public class SingleInputDilaogFragment extends DialogFragment {
+public class NewPasswordDilaogFragment extends DialogFragment {
 
 
     @BindView(R.id.txtLabel)
     TextView txtLabel;
-    @BindView(R.id.edtInput)
-    EditText edtInput;
     @BindView(R.id.btnSave)
     Button btnSave;
     @BindView(R.id.btnCancel)
@@ -36,12 +35,16 @@ public class SingleInputDilaogFragment extends DialogFragment {
     Unbinder unbinder;
 
     OnFragmentInteractionListener mListener;
+    @BindView(R.id.edtInputName)
+    EditText edtInputName;
+    @BindView(R.id.edtInputPassword)
+    EditText edtInputPassword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View view = inflater.inflate(R.layout.dialog_edittext, container, false);
-        unbinder=ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -63,22 +66,30 @@ public class SingleInputDilaogFragment extends DialogFragment {
         unbinder.unbind();
     }
 
-    interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
 
-        void onSuccess(String s);
+        void onSuccess(Password s);
 
         void onCancel();
     }
 
     @OnClick(R.id.btnSave)
-    public void onSave(View v ){
-        mListener.onSuccess(edtInput.getText().toString());
+    public void onSave(View v) {
+        mListener.onSuccess(new Password(edtInputName.getText().toString(),edtInputPassword.getText().toString()));
         dismiss();
     }
 
     @OnClick(R.id.btnCancel)
-    public void onCancel(View v ){
+    public void onCancel(View v) {
         mListener.onCancel();
         dismiss();
+    }
+
+    public void setEdtInputName(String text){
+        edtInputName.setText(text);
+    }
+
+    public void setEdtInputPassword(String text){
+        edtInputPassword.setText(text);
     }
 }

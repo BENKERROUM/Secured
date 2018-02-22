@@ -1,79 +1,138 @@
 package com.example.mbenkerroum.secured;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.example.mbenkerroum.secured.Dialog.NewPasswordDilaogFragment;
+import com.example.mbenkerroum.secured.Dialog.UpdatePasswordDilaogFragment;
 
+/**
+ * An activity representing a single Password detail screen. This
+ * activity is only used on narrow width devices. On tablet-size devices,
+ * item details are presented side-by-side with a list of items
+ * in a {@link PasswordListActivity}.
+ */
+public class PasswordDetailActivity extends CustomActivity implements PasswordDetailFragment.Callbacks,UpdatePasswordDilaogFragment.OnFragmentInteractionListener{
 
-public class PasswordDetailActivity extends CustomActivity implements SingleInputDilaogFragment.OnFragmentInteractionListener{
-
-    @BindView(R.id.txtPasswordDisplayer)
-    TextView txtPasswordDisplayer;
-    @BindView(R.id.btnPasswordCopy)
-    Button btnPasswordCopy;
-    @BindView(R.id.btnPasswordUpdate)
-    Button btnPasswordUpdate;
-
-    private static String TAG = "PasswordDetailActivity";
+    private static final String TAG ="PasswordDetailActivity" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passworddetail);
-        ButterKnife.bind(this);
-        PasswordProvider.providePassord(new PasswordProvider.Callback<String>() {
+        setContentView(R.layout.activity_password_detail);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        // savedInstanceState is non-null when there is fragment state
+        // saved from previous configurations of this activity
+        // (e.g. when rotating the screen from portrait to landscape).
+        // In this case, the fragment will automatically be re-added
+        // to its container so we don't need to manually add it.
+        // For more information, see the Fragments API guide at:
+        //
+        // http://developer.android.com/guide/components/fragments.html
+        //
+        if (savedInstanceState == null) {
+            // Create the detail fragment and add it to the activity
+            // using a fragment transaction.
+            Bundle arguments = new Bundle();
+            arguments.putSerializable(PasswordDetailFragment.ARG_PASSWORD_ID,
+                    getIntent().getSerializableExtra(PasswordDetailFragment.ARG_PASSWORD_ID));
+            PasswordDetailFragment fragment = new PasswordDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.password_detail_container, fragment)
+                    .commit();
+        }
+    }
+
+    @Override
+    public void showMessage(String s) {
+        runOnUiThread(() -> Toast.makeText(this,s,Toast.LENGTH_LONG).show());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            // This ID represents the Home or Up button. In the case of this
+            // activity, the Up button is shown. Use NavUtils to allow users
+            // to navigate up one level in the application structure. For
+            // more details, see the Navigation pattern on Android Design:
+            //
+            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
+            //
+            NavUtils.navigateUpTo(this, new Intent(this, PasswordListActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDelete(Password password) {
+        PasswordProvider.removePassword(password, new PasswordProvider.Callback<String, String>() {
             @Override
-            public void onSuccess(String o) {
-                txtPasswordDisplayer.setText(o);
+            public void onSuccess(String s) {
+                showMessage(s);
+                finish();
             }
 
             @Override
-            public void onError(String o) {
-                showMessage(o);
+            public void onError(String s) {
+                showMessage(s);
             }
         });
     }
 
     @Override
-    public void showMessage(String s) {
-        runOnUiThread(() -> Toast.makeText(PasswordDetailActivity.this, s, Toast.LENGTH_SHORT).show());
-    }
-
-    public void updatedPasswordText(String password){
-        runOnUiThread(() ->  txtPasswordDisplayer.setText(password));
-    }
-
-    @OnClick(R.id.btnPasswordCopy)
-    public void onCopyClick(View view) {
-        Toast.makeText(this, "Copied",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.btnPasswordUpdate)
-    public void onUpdateClick(View view) {
-        SingleInputDilaogFragment newFragment = new SingleInputDilaogFragment();
-        newFragment.show(getSupportFragmentManager(), TAG);
-
+    public void onCopy(Password password) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(password.getPasswordName(), password.getPasswordString());
+        clipboard.setPrimaryClip(clip);
+        showMessage("copied to Clip Board");
     }
 
     @Override
-    public void onSuccess(String password) {
-        PasswordProvider.updatePassword(password, new PasswordProvider.Callback<String>() {
+    public void onEdit(Password password) {
+        UpdatePasswordDilaogFragment newFragment = new UpdatePasswordDilaogFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(UpdatePasswordDilaogFragment.KEY, password);
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), TAG);
+    }
+
+    @Override
+    public void onSuccess(Password s) {
+        PasswordProvider.updatePassword(s, new PasswordProvider.Callback<String, String>() {
             @Override
-            public void onSuccess(String o) {
-               updatedPasswordText(o);
-               showMessage("Updated");
+            public void onSuccess(String s) {
+                showMessage(s);
+                finish();
             }
 
             @Override
-            public void onError(String o) {
-                showMessage(o);
+            public void onError(String s) {
+                showMessage(s);
             }
         });
     }
@@ -83,4 +142,3 @@ public class PasswordDetailActivity extends CustomActivity implements SingleInpu
 
     }
 }
-
