@@ -10,4 +10,5 @@
     <string name="title_password_detail">Password Detail</string>
     <string name="confirm">Confirm</string>
     <string name="deleteText">Delete</string>
+    <string name="newPasswordText">New password :</string>
 </resources>

@@ -28,9 +28,9 @@ public class NewPasswordDilaogFragment extends DialogFragment {
     @BindView(R.id.txtLabel)
     TextView txtLabel;
     @BindView(R.id.btnSave)
-    Button btnSave;
+    View btnSave;
     @BindView(R.id.btnCancel)
-    Button btnCancel;
+    View btnCancel;
 
     Unbinder unbinder;
 

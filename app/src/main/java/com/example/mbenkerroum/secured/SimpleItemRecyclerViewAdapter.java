@@ -66,6 +66,12 @@ public class SimpleItemRecyclerViewAdapter
         holder.mContentView.setText(mValues.get(position).getPasswordString());
         holder.itemView.setTag(mValues.get(position));
         holder.mContainer.setOnClickListener(mOnClickListener);
+        holder.mCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mParentActivity.copy(mValues.get(position));
+            }
+        });
     }
 
     @Override
@@ -77,12 +83,14 @@ public class SimpleItemRecyclerViewAdapter
         final TextView mIdView;
         final TextView mContentView;
         final View mContainer;
+        final View mCopy;
 
         ViewHolder(View view) {
             super(view);
             mIdView = view.findViewById(R.id.id_text);
             mContentView = view.findViewById(R.id.content);
             mContainer = view.findViewById(R.id.container);
+            mCopy = view.findViewById(R.id.copy);
         }
     }
 

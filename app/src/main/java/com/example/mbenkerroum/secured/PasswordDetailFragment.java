@@ -30,12 +30,12 @@ public class PasswordDetailFragment extends Fragment {
     @BindView(R.id.txtPasswordDisplayer)
     TextView txtPasswordDisplayer;
     @BindView(R.id.btnPasswordCopy)
-    Button btnPasswordCopy;
+    View btnPasswordCopy;
     @BindView(R.id.btnPasswordUpdate)
-    Button btnPasswordUpdate;
+    View btnPasswordUpdate;
     Unbinder unbinder;
     @BindView(R.id.btnPasswordDelete)
-    Button btnPasswordDelete;
+    View btnPasswordDelete;
 
     /**
      * The dummy content this fragment is presenting.

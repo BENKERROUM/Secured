@@ -1,5 +1,7 @@
 package com.example.mbenkerroum.secured;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -147,5 +149,13 @@ public class PasswordListActivity extends CustomActivity implements NewPasswordD
             }
         });
 
+    }
+
+
+    public void copy(Password password) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(password.getPasswordName(), password.getPasswordString());
+        clipboard.setPrimaryClip(clip);
+        showMessage("copied to Clip Board");
     }
 }
