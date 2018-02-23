@@ -6,7 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,6 +39,8 @@ public class NewPasswordDilaogFragment extends DialogFragment {
     EditText edtInputName;
     @BindView(R.id.edtInputPassword)
     EditText edtInputPassword;
+    @BindView(R.id.edtInputDesc)
+    AutoCompleteTextView edtInputDesc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class NewPasswordDilaogFragment extends DialogFragment {
 
     @OnClick(R.id.btnSave)
     public void onSave(View v) {
-        mListener.onSuccess(new Password(edtInputName.getText().toString(),edtInputPassword.getText().toString()));
+        mListener.onSuccess(new Password(edtInputName.getText().toString(), edtInputPassword.getText().toString(), edtInputDesc.getText().toString()));
         dismiss();
     }
 
@@ -85,11 +87,11 @@ public class NewPasswordDilaogFragment extends DialogFragment {
         dismiss();
     }
 
-    public void setEdtInputName(String text){
+    public void setEdtInputName(String text) {
         edtInputName.setText(text);
     }
 
-    public void setEdtInputPassword(String text){
+    public void setEdtInputPassword(String text) {
         edtInputPassword.setText(text);
     }
 }

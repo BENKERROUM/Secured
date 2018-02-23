@@ -22,15 +22,19 @@ public class Password implements Serializable {
 
     @ColumnInfo(name = "passwordString")
     private String passwordString;
+
+    @ColumnInfo(name = "passwordDesc")
+    private String passwordDesc;
     @Ignore
     public Password(int uid, String passwordString) {
         this.uid = uid;
         this.passwordString = passwordString;
     }
     @Ignore
-    public Password(String passwordName, String passwordString) {
+    public Password(String passwordName, String passwordString,String passwordDesc) {
         this.passwordName = passwordName;
         this.passwordString = passwordString;
+        this.passwordDesc = passwordDesc;
     }
 
     public Password(String passwordString) {
@@ -63,4 +67,11 @@ public class Password implements Serializable {
         this.passwordName = passwordName;
     }
 
+    public String getPasswordDesc() {
+        return passwordDesc;
+    }
+
+    public void setPasswordDesc(String passwordDesc) {
+        this.passwordDesc = passwordDesc;
+    }
 }

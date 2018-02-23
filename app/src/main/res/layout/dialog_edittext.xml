@@ -37,25 +37,45 @@
             android:fontFamily="sans-serif-condensed"/>
 
     <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/colorPrimary"></LinearLayout>
+
+
+    <AutoCompleteTextView
+        android:id="@+id/edtInputPassword"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="password"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:inputType="textPassword"
+        android:background="@color/colorFill"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:textStyle="normal|bold"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="5dp"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorPrimary"></LinearLayout>
 
 
-        <AutoCompleteTextView
-            android:id="@+id/edtInputPassword"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="password"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:inputType="textPassword"
-            android:background="@color/colorFill"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-            android:textStyle="normal|bold"
-            android:fontFamily="sans-serif-condensed"
-            android:padding="5dp"/>
+    <AutoCompleteTextView
+        android:id="@+id/edtInputDesc"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Description"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:inputType="text"
+        android:background="@color/colorFill"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:textStyle="normal|bold"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"

@@ -63,7 +63,7 @@ public class SimpleItemRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mIdView.setText(mValues.get(position).getPasswordName().toUpperCase());
-        holder.mContentView.setText(mValues.get(position).getPasswordString());
+        holder.mContentView.setText(mValues.get(position).getPasswordDesc());
         holder.itemView.setTag(mValues.get(position));
         holder.mCopy.setOnClickListener(view -> mParentActivity.onCopy(mValues.get(position)));
         holder.mEdit.setOnClickListener(view -> mParentActivity.onEdit(mValues.get(position)));

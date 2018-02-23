@@ -6,7 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,7 +25,7 @@ import butterknife.Unbinder;
 public class UpdatePasswordDilaogFragment extends DialogFragment {
 
 
-    public static final String KEY ="key" ;
+    public static final String KEY = "key";
     @BindView(R.id.txtLabel)
     TextView txtLabel;
     @BindView(R.id.btnSave)
@@ -42,16 +42,19 @@ public class UpdatePasswordDilaogFragment extends DialogFragment {
     EditText edtInputPassword;
 
     Password password;
+    @BindView(R.id.edtInputDesc)
+    AutoCompleteTextView edtInputDesc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View view = inflater.inflate(R.layout.dialog_edittext, container, false);
         unbinder = ButterKnife.bind(this, view);
-        password = (Password)getArguments().getSerializable(KEY);
-        if(password!=null){
+        password = (Password) getArguments().getSerializable(KEY);
+        if (password != null) {
             setEdtInputName(password.getPasswordName());
             setEdtInputPassword(password.getPasswordString());
+            setEdtInputDesc(password.getPasswordDesc());
         }
         return view;
     }
@@ -85,6 +88,7 @@ public class UpdatePasswordDilaogFragment extends DialogFragment {
     public void onSave(View v) {
         password.setPasswordString(edtInputPassword.getText().toString());
         password.setPasswordName(edtInputName.getText().toString());
+        password.setPasswordDesc(edtInputDesc.getText().toString());
         mListener.onSuccessUpdatePassword(password);
         dismiss();
     }
@@ -95,11 +99,15 @@ public class UpdatePasswordDilaogFragment extends DialogFragment {
         dismiss();
     }
 
-    public void setEdtInputName(String text){
+    public void setEdtInputName(String text) {
         edtInputName.setText(text);
     }
 
-    public void setEdtInputPassword(String text){
+    public void setEdtInputPassword(String text) {
         edtInputPassword.setText(text);
+    }
+
+    public void setEdtInputDesc(String text) {
+        edtInputDesc.setText(text);
     }
 }
