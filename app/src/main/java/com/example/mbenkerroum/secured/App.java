@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 public class App extends Application {
 
     public static App INSTANCE;
-    private static final String DATABASE_NAME = "MyDatabase";
+    static final String DATABASE_NAME = "MyDatabase";
     private static final String PREFERENCES = "RoomDemo.preferences";
     private static final String KEY_FORCE_UPDATE = "force_update";
 

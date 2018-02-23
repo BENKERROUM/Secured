@@ -40,7 +40,7 @@ public class Password implements Serializable {
     public Password(String passwordString) {
         this.passwordString = passwordString;
     }
-    //private Encryptor<String,String> encryptor;
+
 
 
     public int getUid() {

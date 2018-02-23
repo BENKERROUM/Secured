@@ -29,7 +29,8 @@
         <activity
             android:name=".PasswordListActivity"
             android:label="@string/title_password_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Auth.AuthentificatorActivity"></activity>
     </application>
 
 </manifest>

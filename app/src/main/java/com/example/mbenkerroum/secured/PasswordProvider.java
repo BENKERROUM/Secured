@@ -3,6 +3,8 @@ package com.example.mbenkerroum.secured;
 
 import android.util.Log;
 
+import com.example.mbenkerroum.secured.Encryptor.PasswordEcryptor;
+
 import java.util.List;
 
 
@@ -21,7 +23,7 @@ public class PasswordProvider {
         new Thread(() -> {
             try {
                 List<Password> passwords =App.get().getDB().passwordDao().getAll();
-                callback.onSuccess(passwords);
+                callback.onSuccess(PasswordEcryptor.decryptAll(passwords));
             }catch (Exception e){
                 callback.onError(e.getLocalizedMessage());
                 Log.e(Tag,e.getLocalizedMessage());
@@ -32,7 +34,7 @@ public class PasswordProvider {
     public static void saveNewPassword(Password password,Callback<String,String> callback){
         new Thread(() -> {
             try {
-                App.get().getDB().passwordDao().insert(password);
+                App.get().getDB().passwordDao().insert(PasswordEcryptor.encrypt(password));
                 callback.onSuccess("Password saved !");
             } catch (Exception e) {
                 Log.e(Tag, e.getLocalizedMessage());
@@ -56,7 +58,7 @@ public class PasswordProvider {
     public static void updatePassword(Password password,Callback<String,String> callback){
         new Thread(() -> {
             try {
-                App.get().getDB().passwordDao().update(password);
+                App.get().getDB().passwordDao().update(PasswordEcryptor.encrypt(password));
                 callback.onSuccess("Password updated !");
             } catch (Exception e) {
                 Log.e(Tag, e.getLocalizedMessage());
