@@ -8,6 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorFill"
+            android:text="INSERT YOUR NEW PASSWORD"
+            android:textStyle="normal|bold" />
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

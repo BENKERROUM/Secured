@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mbenkerroum.secured.CustomActivity;
+import com.example.mbenkerroum.secured.Password;
 import com.example.mbenkerroum.secured.PasswordListActivity;
 import com.example.mbenkerroum.secured.R;
 
@@ -59,8 +60,6 @@ public class AuthentificatorActivity extends CustomActivity implements Authentif
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                System.out.println("###########################a" + password);
-                System.out.println("###########################b" + charSequence);
                 if(edtpassword.getText().toString().equals(password)){
                     startActivity(new Intent(AuthentificatorActivity.this,PasswordListActivity.class));
                     finish();
@@ -83,6 +82,7 @@ public class AuthentificatorActivity extends CustomActivity implements Authentif
     @Override
     public void onSuccess(String password) {
         this.password = password;
+
     }
 
     @Override
@@ -91,8 +91,8 @@ public class AuthentificatorActivity extends CustomActivity implements Authentif
     }
 
     @Override
-    public void onPasswordSet() {
-
+    public void onPasswordSet(String password) {
+            onSuccess(password);
     }
 
     @Override

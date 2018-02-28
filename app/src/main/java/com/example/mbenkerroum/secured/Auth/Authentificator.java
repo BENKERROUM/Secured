@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.mbenkerroum.secured.App;
+import com.example.mbenkerroum.secured.Password;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -28,7 +29,7 @@ public class Authentificator {
         SharedPreferences.Editor editor =  App.get().getSharedPreferences(User_Key, MODE_PRIVATE).edit();
         editor.putString(UserPassword_Key, password);
         editor.apply();
-        authentificatorCallbacks.onPasswordSet();
+        authentificatorCallbacks.onPasswordSet(password);
     }
 
     public void getUserPassword(AuthentificatorCallbacks authentificatorCallbacks){
@@ -47,6 +48,6 @@ public class Authentificator {
     interface AuthentificatorCallbacks{
         void onSuccess(String s);
         void onUnregistred();
-        void onPasswordSet();
+        void onPasswordSet(String password);
     }
 }
