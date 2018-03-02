@@ -28,6 +28,7 @@
             android:inputType="textPassword"
             android:gravity="center"
             android:id="@+id/edtpassword"
+            style="@style/StrokeButtonStyle"
             android:cursorVisible="false"/>
         </android.support.design.widget.TextInputLayout>
 

@@ -12,4 +12,7 @@
     <string name="deleteText">Delete</string>
     <string name="newPasswordText">New password :</string>
     <string name="navBar_label">SECURED</string>
+    <string name="Title_Label">Title :</string>
+    <string name="Password_Label">Password :</string>
+    <string name="Description_Label">Description :</string>
 </resources>

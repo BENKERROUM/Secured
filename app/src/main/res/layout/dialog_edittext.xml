@@ -21,11 +21,17 @@
         android:layout_height="1dp"
         android:background="@color/colorPrimary"></LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/Title_Label"
+        android:paddingLeft="5dp"/>
+
         <AutoCompleteTextView
             android:id="@+id/edtInputName"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="name"
+            android:layout_height="40dp"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"
@@ -33,34 +39,52 @@
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:textStyle="normal|bold"
-            android:fontFamily="sans-serif-condensed"/>
+            android:fontFamily="sans-serif-condensed"
+            style="@style/StrokeButtonStyle"
+            android:layout_margin="5dp"
+            android:gravity="left"/>
 
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/Password_Label"
+        android:paddingLeft="5dp"/>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="40dp"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/colorAccent">
-    <AutoCompleteTextView
-        android:id="@+id/edtInputPassword"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:hint="password"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:inputType="textPassword"
-        android:textStyle="normal|bold"
-        android:fontFamily="sans-serif-condensed" />
+        app:passwordToggleTint="@color/colorAccent"
+        style="@style/StrokeButtonStyle"
+        android:layout_margin="5dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/edtInputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorTransparent"
+            android:fontFamily="sans-serif-condensed"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textStyle="normal|bold"
+            android:gravity="left"
+            android:padding="5dp"/>
     </android.support.design.widget.TextInputLayout>
 
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/Description_Label"
+        android:paddingLeft="5dp"/>
     <AutoCompleteTextView
         android:id="@+id/edtInputDesc"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:hint="Description"
+        android:layout_height="40dp"
         android:maxLines="1"
         android:singleLine="true"
         android:inputType="text"
@@ -68,7 +92,10 @@
         android:paddingTop="20dp"
         android:textStyle="normal|bold"
         android:fontFamily="sans-serif-condensed"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        style="@style/StrokeButtonStyle"
+        android:layout_margin="5dp"
+        android:gravity="left"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,8 +105,8 @@
         android:gravity="center">
         <ImageButton
             android:id="@+id/btnSave"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:tint="@color/colorFill"
             app:layout_anchor="@+id/frameLayout"
@@ -87,8 +114,8 @@
             android:src="@drawable/ic_done_24dp" />
         <ImageButton
             android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:tint="@color/colorFill"
             app:layout_anchor="@+id/frameLayout"
