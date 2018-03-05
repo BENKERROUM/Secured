@@ -16,12 +16,11 @@ import java.util.List;
 public class PasswordEcryptor {
 
     private static final String TAG = "Ecryptor";
-    private static String passwordApp = "password";
 
-    public static Password encrypt(Password password){
+    public static Password encrypt(Password password,String key){
         String encryptedMsg ="ERROR";
         try {
-            encryptedMsg = AESCrypt.encrypt(passwordApp, password.getPasswordString());
+            encryptedMsg = AESCrypt.encrypt(key, password.getPasswordString());
         }catch (GeneralSecurityException e){
             Log.e(TAG,e.getLocalizedMessage());
         }
@@ -29,10 +28,10 @@ public class PasswordEcryptor {
         return password;
     }
 
-    public static Password decrypt(Password password){
+    public static Password decrypt(Password password,String key){
         String messageAfterDecrypt="ERROR";
         try {
-            messageAfterDecrypt = AESCrypt.decrypt(passwordApp, password.getPasswordString());
+            messageAfterDecrypt = AESCrypt.decrypt(key, password.getPasswordString());
         }catch (GeneralSecurityException e){
             Log.e(TAG,e.getLocalizedMessage());
         }
@@ -40,10 +39,19 @@ public class PasswordEcryptor {
         return password;
     }
 
-    public static List<Password> decryptAll(List<Password> passwords){
+    public static List<Password> decryptAll(List<Password> passwords,String key){
         List<Password> newPasswors = new LinkedList<>();
         for(Password password : passwords){
-            newPasswors.add(decrypt(password));
+            newPasswors.add(decrypt(password,key));
+        }
+        return passwords;
+
+    }
+
+    public static List<Password> encryptAll(List<Password> passwords,String key){
+        List<Password> newPasswors = new LinkedList<>();
+        for(Password password : passwords){
+            newPasswors.add(encrypt(password,key));
         }
         return passwords;
 

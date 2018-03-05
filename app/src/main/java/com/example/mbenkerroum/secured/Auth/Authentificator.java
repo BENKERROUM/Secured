@@ -45,7 +45,7 @@ public class Authentificator {
 
 
 
-    interface AuthentificatorCallbacks{
+    public interface AuthentificatorCallbacks{
         void onSuccess(String s);
         void onUnregistred();
         void onPasswordSet(String password);
