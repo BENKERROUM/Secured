@@ -1,4 +1,4 @@
 "# Secured" 
 
 
-Easy password management
+Easy password manager
